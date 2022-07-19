@@ -7,24 +7,16 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
-func main(){
-// Connect to a server
-nc, err := nats.Connect(nats.DefaultURL, nats.Name("Friend API"))
-if err != nil{
-	log.Fatal(err)
-}
-getStatustxt:= func(nats.Conn)string{
-	switch nc.Status(){
-	case nats.CONNECTED:
-		return "Connected"
-	case nats.CLOSED:
-		return "Closed"
-	default:
-		return "Other"
+func main() {
+	// Connect to a server
+	nc, err := nats.Connect(nats.DefaultURL, nats.Name("Friend API"), nats.DisconnectErrHandler(func(c *nats.Conn, err error) {
+		fmt.Printf("Client Disconnected %v", err)
+	}), nats.ReconnectHandler(func(c *nats.Conn) { fmt.Println("Client Reconnect") }), nats.ClosedHandler(func(c *nats.Conn) {
+		fmt.Println("Client Closed")
+	}))
+	if err != nil {
+		log.Fatal(err)
 	}
-}
-fmt.Println(getStatustxt(*nc))
-nc.Close()
-fmt.Println(getStatustxt(*nc))
-// Do smth..
+	defer nc.Close()
+
 }
