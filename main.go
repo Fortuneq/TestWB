@@ -9,14 +9,14 @@ import (
 
 func main() {
 	// Connect to a server
-	nc, err := nats.Connect(nats.DefaultURL, nats.Name("Friend API"), nats.DisconnectErrHandler(func(c *nats.Conn, err error) {
-		fmt.Printf("Client Disconnected %v", err)
-	}), nats.ReconnectHandler(func(c *nats.Conn) { fmt.Println("Client Reconnect") }), nats.ClosedHandler(func(c *nats.Conn) {
-		fmt.Println("Client Closed")
+	nc, err := nats.Connect(nats.DefaultURL, nats.Name("Friend API"),nats.DiscoveredServersHandler(func(c *nats.Conn) {
+		fmt.Printf("Discovered servers %v", c.DiscoveredServers())
 	}))
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("Server connected")
 	defer nc.Close()
 
 }
