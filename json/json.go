@@ -20,8 +20,8 @@ func main() {
 	}
 
 	type time struct {
-		Time int
-		What int
+		Time string
+		What string
 	}
 
 	wg := sync.WaitGroup{}
