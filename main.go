@@ -1,5 +1,9 @@
 package main
+import "github.com/nats-io/nats.go"
 
-func main() {
-	println("начао конца ")
+func main(){
+// Connect to a server
+nc, _ := nats.Connect(nats.DefaultURL)
+
+nc.Close()
 }
