@@ -9,7 +9,7 @@ import (
 
 func main(){
 // Connect to a server
-nc, err := nats.Connect("vlad:qwerty@127.0.0.1")
+nc, err := nats.Connect(nats.DefaultURL, nats.Name("Friend API"), nats.Token("tokens"))
 if err != nil{
 	log.Fatal(err)
 }
