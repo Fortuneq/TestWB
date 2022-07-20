@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/nats-io/stan.go"
 )
@@ -16,13 +17,12 @@ func main(){
 		log.Fatal(err)
 	}
 	log.Println("Connected")
-
-	sub,err := sc.Subscribe("bro",func(msg *stan.Msg){msg.Ack()},stan.StartWithLastReceived(),stan.DurableName("durable-sub"))
+	timer,_ := time.ParseDuration("30s")
+	sub,err := sc.Subscribe("bro",func(m *stan.Msg){fmt.Printf("Received a message: %s\n", string(m.Data))},stan.StartAtTimeDelta(timer))
 	if err != nil{
 		log.Fatal(sub)
 	}
-	fmt.Println(sub)
-	sub.Close()
+	sub.Unsubscribe()
 
 	sc.Close()
 }
