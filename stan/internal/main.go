@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/nats-io/stan.go"
@@ -14,13 +15,14 @@ func main(){
 	if err := sc.Publish("bro",[]byte(" World song"));err!=nil{
 		log.Fatal(err)
 	}
-
-	sub,err := sc.Subscribe("bro",func(msg *stan.Msg){},stan.StartWithLastReceived(),stan.DurableName("durable-sub"))
-	if err != nil{
-		log.Fatal(err)
-	}
-	sub.Unsubscribe()
-	sub.Close()
 	log.Println("Connected")
+
+	sub,err := sc.Subscribe("bro",func(msg *stan.Msg){msg.Ack()},stan.StartWithLastReceived(),stan.DurableName("durable-sub"))
+	if err != nil{
+		log.Fatal(sub)
+	}
+	fmt.Println(sub)
+	sub.Close()
+
 	sc.Close()
 }
