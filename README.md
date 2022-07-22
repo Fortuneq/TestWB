@@ -18,7 +18,7 @@ This server uses Nats-streaming and PostgreSQL.
 ```
 
 Output:
-``
+`
 Running 10s test @ http://192.168.1.118:8080/json
   80 goroutine(s) running concurrently
    142470 requests in 4.949028953s, 19.57MB read
@@ -28,4 +28,4 @@ Running 10s test @ http://192.168.1.118:8080/json
      Fastest Request:	0.0340ms
      Slowest Request:	0.0421ms
      Number of Errors:	0
-``
+`
