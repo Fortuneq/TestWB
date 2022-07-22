@@ -7,15 +7,25 @@ This server uses Nats-streaming and PostgreSQL.
 
 #### Структура
 - **В папке modules хранятся все модели для json**
-- **В папке db всё , что касается миграция** (get model by id)
-- **В папке cash всё, что отвечает за кэширование In memory** (create new model)
-- **DELETE /api/models/:id** (delete model by id)
+- **В папке db всё , что касается миграция** 
+- **В папке cash всё, что отвечает за кэширование In memory** 
 
+### WRK test benchmark
 
-- **GET /api/models/cache** (get all models from cache)
-- **GET /api/models/cache/:id** (get model by id from cache)
-
-### VEGETA  
+## Запуск теста из 80 горутин на 5 секунд 
 ```
-"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."
+./go-wrk -c 80 -d 5  http://localhost:8080/json
 ```
+
+Output:
+``
+Running 10s test @ http://192.168.1.118:8080/json
+  80 goroutine(s) running concurrently
+   142470 requests in 4.949028953s, 19.57MB read
+     Requests/sec:		28787.47
+     Transfer/sec:		3.95MB
+     Avg Req Time:		0.0347ms
+     Fastest Request:	0.0340ms
+     Slowest Request:	0.0421ms
+     Number of Errors:	0
+``
