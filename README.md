@@ -5,10 +5,10 @@ This server uses Nats-streaming and PostgreSQL.
 ./go test -race -v main.go
 ```
 
-#### Routes
-- **GET /api/models** (get all models)
-- **GET /api/models/:id** (get model by id)
-- **POST /api/models** (create new model)
+#### Структура
+- **В папке modules хранятся все модели для json**
+- **В папке db всё , что касается миграция** (get model by id)
+- **В папке cash всё, что отвечает за кэширование In memory** (create new model)
 - **DELETE /api/models/:id** (delete model by id)
 
 
