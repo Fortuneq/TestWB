@@ -1,5 +1,5 @@
 # TestWB RESTful server with NATS-streaming
-##DEV
+## DEV
 This server uses Nats-streaming and PostgreSQL.
 ```
 ./go test -race -v main.go
@@ -7,7 +7,7 @@ This server uses Nats-streaming and PostgreSQL.
 
 #### Структура
 - **В папке modules хранятся все модели для json**
-- **В папке db всё , что касается миграция** 
+- **В папке db всё , что касается миграциями** 
 - **В папке cash всё, что отвечает за кэширование In memory** 
 
 ### WRK test benchmark
